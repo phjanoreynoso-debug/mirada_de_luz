@@ -23,7 +23,8 @@ export function ClientProfile() {
         theme: 'purple',
         font: 'mystical',
         decoration: 'ornate',
-        showStats: true
+        showStats: true,
+        fontSize: 'medium'
     });
 
   const themes: any = {
@@ -466,6 +467,23 @@ export function ClientProfile() {
                                     <option value="title">Cinemática</option>
                                 </select>
                              </div>
+
+                             <div className="w-px h-6 bg-slate-200 mx-2"></div>
+
+                             <div className="flex items-center gap-2">
+                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1"><Type size={14} /> Tamaño</span>
+                                <select 
+                                    value={reportConfig.fontSize}
+                                    onChange={(e) => setReportConfig({...reportConfig, fontSize: e.target.value})}
+                                    className="text-sm border-none bg-white rounded-lg px-3 py-1.5 shadow-sm focus:ring-2 focus:ring-purple-100 cursor-pointer text-slate-700"
+                                >
+                                    <option value="small">Pequeño</option>
+                                    <option value="medium">Normal</option>
+                                    <option value="large">Grande</option>
+                                    <option value="xl">Extra Grande</option>
+                                    <option value="2xl">Enorme</option>
+                                </select>
+                             </div>
                              
                              <div className="w-px h-6 bg-slate-200 mx-2"></div>
 
@@ -490,7 +508,7 @@ export function ClientProfile() {
                             <textarea
                                 value={reportText}
                                 onChange={(e) => setReportText(e.target.value)}
-                                className={`w-full min-h-[297mm] p-[25mm] bg-white shadow-lg mx-auto ${fonts[reportConfig.font]} text-base focus:outline-none text-slate-800 resize-none block`}
+                                className={`w-full min-h-[297mm] p-[25mm] bg-white shadow-lg mx-auto ${fonts[reportConfig.font]} ${fontSizes[reportConfig.fontSize || 'medium']} focus:outline-none text-slate-800 resize-none block`}
                                 style={{
                                     maxWidth: '210mm',
                                     lineHeight: '2rem',
@@ -537,6 +555,23 @@ export function ClientProfile() {
                                 <option value="mystical">Mística</option>
                                 <option value="hand">Manuscrita</option>
                                 <option value="title">Cinemática</option>
+                            </select>
+                        </div>
+
+                        <div className="w-px h-8 bg-slate-100"></div>
+
+                        <div className="flex items-center gap-3">
+                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1"><Type size={14} /> Tamaño</span>
+                            <select 
+                                value={reportConfig.fontSize}
+                                onChange={(e) => setReportConfig({...reportConfig, fontSize: e.target.value})}
+                                className="text-sm border-none bg-slate-50 rounded-lg px-2 py-1 focus:ring-0 cursor-pointer"
+                            >
+                                <option value="small">Pequeño</option>
+                                <option value="medium">Normal</option>
+                                <option value="large">Grande</option>
+                                <option value="xl">Extra Grande</option>
+                                <option value="2xl">Enorme</option>
                             </select>
                         </div>
                     </div>
@@ -872,7 +907,7 @@ export function ClientProfile() {
                                             </div>
                                             
                                             {/* Text without box container to allow clean page breaks */}
-                                            <div className={`prose prose-stone max-w-none text-center text-stone-800 leading-loose text-lg whitespace-pre-wrap ${fonts[reportConfig.font]}`}>
+                                            <div className={`prose prose-stone max-w-none text-center text-stone-800 leading-loose ${fontSizes[reportConfig.fontSize || 'medium']} whitespace-pre-wrap ${fonts[reportConfig.font]}`}>
                                                 {diagnosis}
                                             </div>
                                         </div>
