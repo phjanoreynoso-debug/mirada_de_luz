@@ -10,6 +10,7 @@ export function Agenda() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [consultants, setConsultants] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<'upcoming' | 'history'>('upcoming');
   const [confirmModal, setConfirmModal] = useState({
     isOpen: false,
     title: '',
@@ -114,7 +115,7 @@ export function Agenda() {
     }
   };
 
-  const handleStatusChange = async (id: number, newStatus: string) => {
+  const handleStatusChange = async (id: string, newStatus: string) => {
     try {
       await appointmentService.update(id.toString(), { status: newStatus as any });
       fetchAppointments();
@@ -139,8 +140,23 @@ export function Agenda() {
     }
   };
 
+  // Filter and sort appointments based on active tab
+  const filteredAppointments = appointments.filter(apt => {
+    if (activeTab === 'upcoming') {
+      return apt.status === 'scheduled';
+    } else {
+      return apt.status === 'completed' || apt.status === 'cancelled';
+    }
+  }).sort((a, b) => {
+    const dateA = new Date(`${a.date}T${a.time}`);
+    const dateB = new Date(`${b.date}T${b.time}`);
+    return activeTab === 'upcoming' 
+      ? dateA.getTime() - dateB.getTime() 
+      : dateB.getTime() - dateA.getTime();
+  });
+
   // Group appointments by date
-  const groupedAppointments = appointments.reduce((groups: any, appointment) => {
+  const groupedAppointments = filteredAppointments.reduce((groups: any, appointment) => {
     const date = new Date(appointment.date).toLocaleDateString();
     if (!groups[date]) {
       groups[date] = [];
