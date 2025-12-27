@@ -169,6 +169,30 @@ export function Agenda() {
         </div>
       </div>
 
+      {/* Tabs */}
+      <div className="flex p-1 bg-slate-100 rounded-xl w-fit">
+        <button
+          onClick={() => setActiveTab('upcoming')}
+          className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
+            activeTab === 'upcoming'
+              ? 'bg-white text-purple-700 shadow-sm'
+              : 'text-slate-500 hover:text-slate-700'
+          }`}
+        >
+          Próximas
+        </button>
+        <button
+          onClick={() => setActiveTab('history')}
+          className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
+            activeTab === 'history'
+              ? 'bg-white text-purple-700 shadow-sm'
+              : 'text-slate-500 hover:text-slate-700'
+          }`}
+        >
+          Historial
+        </button>
+      </div>
+
       {/* Content */}
       {loading ? (
         <div className="flex justify-center py-12">
