@@ -4,6 +4,54 @@ import { useToast } from '../context/ToastContext'
 import { Sparkles, Users, ScrollText, Moon, ArrowRight, Activity, Calendar, Loader2, DollarSign } from 'lucide-react'
 import { energyService, clientService, ritualService, spreadService, appointmentService, transactionService } from '../services/localStorage';
 
+const getMoonPhase = (date: Date) => {
+  const synodicMonth = 29.53058867;
+  const knownNewMoon = new Date('2000-01-06T18:14:00Z'); // Known new moon
+  
+  const diffTime = date.getTime() - knownNewMoon.getTime();
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+  const phaseAge = diffDays % synodicMonth;
+  
+  // Illumination calculation (approximate)
+  const illumination = Math.round((1 - Math.cos((phaseAge / synodicMonth) * 2 * Math.PI)) / 2 * 100);
+
+  let phaseName = '';
+  let description = '';
+
+  // Phases
+  if (phaseAge < 1.84566) {
+    phaseName = 'Luna Nueva';
+    description = 'Momento de inicios, siembra de intenciones y nuevos comienzos.';
+  } else if (phaseAge < 5.53699) {
+    phaseName = 'Luna Creciente';
+    description = 'Energía de expansión, ideal para actuar sobre tus intenciones.';
+  } else if (phaseAge < 9.22831) {
+    phaseName = 'Cuarto Creciente';
+    description = 'Superación de obstáculos, toma de decisiones y acción.';
+  } else if (phaseAge < 12.91963) {
+    phaseName = 'Gibosa Creciente';
+    description = 'Perfeccionamiento, análisis y ajustes antes de la culminación.';
+  } else if (phaseAge < 16.61096) {
+    phaseName = 'Luna Llena';
+    description = 'Plenitud, iluminación, celebración y gratitud. Energía máxima.';
+  } else if (phaseAge < 20.30228) {
+    phaseName = 'Gibosa Menguante';
+    description = 'Compartir sabiduría, relajación y agradecimiento.';
+  } else if (phaseAge < 23.99361) {
+    phaseName = 'Cuarto Menguante';
+    description = 'Soltar, dejar ir lo que no sirve y limpieza.';
+  } else {
+    phaseName = 'Luna Menguante';
+    description = 'Descanso, reflexión interna y preparación para el nuevo ciclo.';
+  }
+
+  return {
+    phase: phaseName,
+    illumination,
+    description
+  };
+};
+
 const Dashboard = () => {
   const { addToast } = useToast()
   const [stats, setStats] = useState({
@@ -15,6 +63,7 @@ const Dashboard = () => {
   const [recentActivity, setRecentActivity] = useState<any[]>([]);
   const [todaysAppointments, setTodaysAppointments] = useState<any[]>([]);
   const [financials, setFinancials] = useState({ income: 0, balance: 0 });
+  const [moonData, setMoonData] = useState({ phase: '', illumination: 0, description: '' });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -59,6 +108,9 @@ const Dashboard = () => {
           });
 
         setTodaysAppointments(todays);
+
+        // Moon Phase
+        setMoonData(getMoonPhase(new Date()));
 
         // Financials (Current Month)
         const currentMonth = new Date().getMonth();
@@ -287,12 +339,12 @@ const Dashboard = () => {
                 <Moon className="w-8 h-8 fill-current" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-amber-900">Cuarto Creciente</p>
-                <p className="text-sm text-amber-700 font-medium">Iluminación 45%</p>
+                <p className="text-2xl font-bold text-amber-900">{moonData.phase}</p>
+                <p className="text-sm text-amber-700 font-medium">Iluminación {moonData.illumination}%</p>
               </div>
             </div>
             <p className="text-sm text-amber-800/80 italic border-t border-amber-200/50 pt-4 mt-2">
-              "Momento ideal para sembrar intenciones y comenzar nuevos proyectos."
+              "{moonData.description}"
             </p>
           </div>
         </div>
