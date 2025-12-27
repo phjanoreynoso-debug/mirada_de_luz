@@ -241,10 +241,10 @@ export function Agenda() {
               
               <div className="divide-y divide-slate-100">
                 {items.map((apt: any) => (
-                  <div key={apt.id} className="p-4 hover:bg-slate-50 transition-colors flex flex-col md:flex-row gap-4 items-center group">
+                  <div key={apt.id} className="p-3 hover:bg-slate-50 transition-colors flex flex-col md:flex-row gap-3 items-center group">
                     {/* Time & Status Badge */}
-                    <div className="flex items-center gap-4 min-w-[140px]">
-                      <span className="text-lg font-bold text-slate-700 font-mono">
+                    <div className="flex items-center gap-3 min-w-[120px]">
+                      <span className="text-base font-bold text-slate-700 font-mono">
                         {new Date(apt.date).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })}
                       </span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${getStatusColor(apt.status)}`}>
@@ -254,15 +254,15 @@ export function Agenda() {
 
                     {/* Main Content */}
                     <div className="flex-1 text-center md:text-left">
-                      <h4 className="font-bold text-slate-800">{apt.title}</h4>
+                      <h4 className="font-semibold text-slate-800 text-sm">{apt.title}</h4>
                       {apt.Consultant && (
-                        <div className="flex items-center justify-center md:justify-start gap-1.5 text-slate-500 text-sm mt-0.5">
+                        <div className="flex items-center justify-center md:justify-start gap-1.5 text-slate-500 text-xs mt-0.5">
                           <User size={12} className="text-purple-400" />
                           <span>{apt.Consultant.name}</span>
                         </div>
                       )}
                       {apt.notes && (
-                        <p className="text-slate-400 text-xs mt-1 line-clamp-1 italic">{apt.notes}</p>
+                        <p className="text-slate-400 text-[10px] mt-0.5 line-clamp-1 italic">{apt.notes}</p>
                       )}
                     </div>
 
@@ -272,25 +272,25 @@ export function Agenda() {
                         <>
                           <button 
                             onClick={() => handleStatusChange(apt.id, 'completed')}
-                            className="p-1.5 text-green-600 hover:bg-green-100 rounded-lg tooltip transition-colors"
+                            className="p-1 text-green-600 hover:bg-green-100 rounded-md tooltip transition-colors"
                             title="Marcar como completada"
                           >
-                            <CheckCircle size={18} />
+                            <CheckCircle size={16} />
                           </button>
                           <button 
                             onClick={() => handleStatusChange(apt.id, 'cancelled')}
-                            className="p-1.5 text-red-600 hover:bg-red-100 rounded-lg tooltip transition-colors"
+                            className="p-1 text-red-600 hover:bg-red-100 rounded-md tooltip transition-colors"
                             title="Cancelar cita"
                           >
-                            <XCircle size={18} />
+                            <XCircle size={16} />
                           </button>
                         </>
                       )}
                       <button 
                         onClick={() => handleDeleteClick(apt.id)}
-                        className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors ml-1"
+                        className="p-1 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors ml-1"
                       >
-                        <Trash2 size={18} />
+                        <Trash2 size={16} />
                       </button>
                     </div>
                   </div>
