@@ -34,8 +34,20 @@ export function Agenda() {
 
   const fetchAppointments = async () => {
     try {
-      const data = await appointmentService.getAll();
-      setAppointments(data);
+      const [appointmentsData, clientsData] = await Promise.all([
+        appointmentService.getAll(),
+        clientService.getAll()
+      ]);
+
+      const enrichedAppointments = appointmentsData.map(apt => {
+        const consultant = clientsData.find(c => c.id.toString() === apt.ConsultantId?.toString());
+        return {
+          ...apt,
+          Consultant: consultant
+        };
+      });
+
+      setAppointments(enrichedAppointments);
     } catch (error) {
       console.error('Error fetching appointments:', error);
       addToast('Error al cargar citas', 'error');
