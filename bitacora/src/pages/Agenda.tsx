@@ -150,7 +150,7 @@ export function Agenda() {
   }, {});
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in max-w-5xl mx-auto">
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -183,66 +183,68 @@ export function Agenda() {
           <p className="text-slate-500 mt-2">No tienes citas programadas. ¡Agrega una nueva para comenzar!</p>
         </div>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-6">
           {Object.entries(groupedAppointments).map(([date, items]: [string, any]) => (
-            <div key={date} className="animate-fade-in-up">
-              <h3 className="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2 sticky top-0 bg-slate-50/95 backdrop-blur-sm py-2 z-10">
-                <div className="w-2 h-8 bg-purple-500 rounded-full"></div>
-                {new Date(items[0].date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-              </h3>
+            <div key={date} className="animate-fade-in-up bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+              <div className="bg-slate-50/50 px-6 py-4 border-b border-slate-100 flex items-center gap-3">
+                 <div className="w-1.5 h-6 bg-purple-500 rounded-full"></div>
+                 <h3 className="text-lg font-bold text-slate-700 capitalize">
+                  {new Date(items[0].date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                 </h3>
+              </div>
               
-              <div className="grid gap-4">
+              <div className="divide-y divide-slate-100">
                 {items.map((apt: any) => (
-                  <div key={apt.id} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row gap-6 items-start md:items-center group">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className={`text-xs font-bold px-2 py-1 rounded-lg border uppercase tracking-wider ${getStatusColor(apt.status)}`}>
-                          {getStatusLabel(apt.status)}
-                        </span>
-                        <span className="text-sm text-slate-500 flex items-center gap-1">
-                          <Clock size={14} />
-                          {new Date(apt.date).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })}
-                        </span>
-                      </div>
-                      
-                      <h4 className="text-xl font-bold text-slate-800 mb-1">{apt.title}</h4>
-                      
+                  <div key={apt.id} className="p-4 hover:bg-slate-50 transition-colors flex flex-col md:flex-row gap-4 items-center group">
+                    {/* Time & Status Badge */}
+                    <div className="flex items-center gap-4 min-w-[140px]">
+                      <span className="text-lg font-bold text-slate-700 font-mono">
+                        {new Date(apt.date).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })}
+                      </span>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${getStatusColor(apt.status)}`}>
+                        {getStatusLabel(apt.status)}
+                      </span>
+                    </div>
+
+                    {/* Main Content */}
+                    <div className="flex-1 text-center md:text-left">
+                      <h4 className="font-bold text-slate-800">{apt.title}</h4>
                       {apt.Consultant && (
-                        <div className="flex items-center gap-2 text-slate-600 text-sm mb-2">
-                          <User size={14} className="text-purple-500" />
-                          <span className="font-medium">{apt.Consultant.name}</span>
+                        <div className="flex items-center justify-center md:justify-start gap-1.5 text-slate-500 text-sm mt-0.5">
+                          <User size={12} className="text-purple-400" />
+                          <span>{apt.Consultant.name}</span>
                         </div>
                       )}
-                      
                       {apt.notes && (
-                        <p className="text-slate-500 text-sm line-clamp-2">{apt.notes}</p>
+                        <p className="text-slate-400 text-xs mt-1 line-clamp-1 italic">{apt.notes}</p>
                       )}
                     </div>
 
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {/* Actions */}
+                    <div className="flex items-center gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all">
                       {apt.status === 'scheduled' && (
                         <>
                           <button 
                             onClick={() => handleStatusChange(apt.id, 'completed')}
-                            className="p-2 text-green-600 hover:bg-green-50 rounded-lg tooltip"
+                            className="p-1.5 text-green-600 hover:bg-green-100 rounded-lg tooltip transition-colors"
                             title="Marcar como completada"
                           >
-                            <CheckCircle size={20} />
+                            <CheckCircle size={18} />
                           </button>
                           <button 
                             onClick={() => handleStatusChange(apt.id, 'cancelled')}
-                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg tooltip"
+                            className="p-1.5 text-red-600 hover:bg-red-100 rounded-lg tooltip transition-colors"
                             title="Cancelar cita"
                           >
-                            <XCircle size={20} />
+                            <XCircle size={18} />
                           </button>
                         </>
                       )}
                       <button 
                         onClick={() => handleDeleteClick(apt.id)}
-                        className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors ml-1"
                       >
-                        <Trash2 size={20} />
+                        <Trash2 size={18} />
                       </button>
                     </div>
                   </div>
