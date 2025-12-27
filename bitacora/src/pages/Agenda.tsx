@@ -245,7 +245,10 @@ export function Agenda() {
                     {/* Time & Status Badge */}
                     <div className="flex items-center gap-3 min-w-[120px]">
                       <span className="text-base font-bold text-slate-700 font-mono">
-                        {new Date(apt.date).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })}
+                        {(() => {
+                          const d = new Date(apt.date);
+                          return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+                        })()}
                       </span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${getStatusColor(apt.status)}`}>
                         {getStatusLabel(apt.status)}
