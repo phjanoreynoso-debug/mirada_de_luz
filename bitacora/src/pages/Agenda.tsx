@@ -189,7 +189,7 @@ export function Agenda() {
                         </span>
                         <span className="text-sm text-slate-500 flex items-center gap-1">
                           <Clock size={14} />
-                          {new Date(apt.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+                          {new Date(apt.date).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })}
                         </span>
                       </div>
                       

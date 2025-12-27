@@ -238,11 +238,15 @@ const Dashboard = () => {
                   {todaysAppointments.map((apt: any) => (
                     <div key={apt.id} className="p-3 bg-purple-50 rounded-xl border border-purple-100 flex items-start gap-3">
                       <div className="bg-white p-2 rounded-lg text-purple-600 text-xs font-bold text-center min-w-[3rem]">
-                        {new Date(apt.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+                        {new Date(apt.date).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })}
                       </div>
                       <div>
                         <p className="font-bold text-slate-800 text-sm">{apt.title}</p>
-                        {apt.Consultant && <p className="text-xs text-slate-500">{apt.Consultant.name}</p>}
+                        {apt.Consultant ? (
+                           <p className="text-xs text-slate-500">{apt.Consultant.name}</p>
+                        ) : (
+                           <p className="text-xs text-slate-400 italic">Sin cliente asignado</p>
+                        )}
                       </div>
                     </div>
                   ))}
