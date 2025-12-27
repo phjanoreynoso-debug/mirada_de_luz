@@ -809,49 +809,55 @@ export function ClientProfile() {
                     </div>
 
                     {/* Content Container */}
-                    <div className="relative z-10 p-[25mm] md:p-[30mm] flex flex-col min-h-screen">
+                    <div className="relative z-10 p-[20mm] md:p-[25mm] flex flex-col min-h-screen">
                         {/* Header */}
-                        <div className="text-center mb-16">
+                        <div className="text-center mb-12">
                             <div className="flex justify-center mb-6">
                                 {customLogo ? (
-                                    <img src={customLogo} alt="Logo Profesional" className="h-24 w-auto object-contain grayscale opacity-80" />
+                                    <img src={customLogo} alt="Logo Profesional" className="h-28 w-auto object-contain" />
                                 ) : (
-                                    <div className="w-12 h-12 rounded-full border border-stone-400 flex items-center justify-center text-stone-600">
-                                        <Sparkles size={20} strokeWidth={1} />
+                                    <div className={`w-16 h-16 rounded-full border-2 flex items-center justify-center ${themes[reportConfig.theme].secondary} ${themes[reportConfig.theme].primary.replace('text-', 'border-')}`}>
+                                        <Sparkles size={28} strokeWidth={1.5} />
                                     </div>
                                 )}
                             </div>
                             
-                            <h1 className="text-5xl text-stone-800 mb-3 tracking-wide">Informe Energético</h1>
-                            <div className="flex items-center justify-center gap-4 text-xs tracking-[0.2em] text-stone-500 uppercase">
+                            <h1 className={`text-5xl font-bold mb-4 tracking-wide ${themes[reportConfig.theme].primary} ${fonts[reportConfig.font]}`}>Informe Energético</h1>
+                            <div className="flex items-center justify-center gap-4 text-xs tracking-[0.2em] text-stone-500 uppercase font-semibold">
                                 <span>Bitácora Profesional</span>
-                                <span className="w-1 h-1 rounded-full bg-stone-400"></span>
+                                <span className={`w-1.5 h-1.5 rounded-full ${themes[reportConfig.theme].accent.replace('text-', 'bg-')}`}></span>
                                 <span>{new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                             </div>
                         </div>
 
-                        {/* Client Info - Minimal & Elegant */}
-                        <div className="text-center mb-16 relative">
-                            <span className="text-stone-400 italic text-lg relative bg-[#fffcf5] px-4 z-10">Preparado para</span>
-                            <div className="absolute top-1/2 left-1/4 right-1/4 h-px bg-stone-200 -z-0"></div>
-                            <h2 className="text-4xl mt-4 text-stone-800">{client.name}</h2>
-                            <p className="text-stone-500 italic mt-2">Análisis Espiritual y Recomendaciones</p>
+                        {/* Client Info - Structured & Elegant */}
+                        <div className="text-center mb-12 relative max-w-2xl mx-auto w-full">
+                            <div className={`absolute top-0 left-0 w-full h-full border ${themes[reportConfig.theme].primary.replace('text-', 'border-')} opacity-20 rounded-lg`}></div>
+                            <div className="relative z-10 py-8 px-12 bg-white/50 backdrop-blur-sm rounded-lg">
+                                <span className={`italic text-lg block mb-2 ${themes[reportConfig.theme].accent}`}>Preparado para</span>
+                                <h2 className={`text-4xl ${themes[reportConfig.theme].primary} ${fonts[reportConfig.font]}`}>{client.name}</h2>
+                                <div className={`w-24 h-px mx-auto my-4 ${themes[reportConfig.theme].primary.replace('text-', 'bg-')} opacity-30`}></div>
+                                <p className="text-stone-600 italic">Análisis Espiritual y Recomendaciones</p>
+                            </div>
                         </div>
 
-                        {/* Stats - Minimal Row */}
+                        {/* Stats - Elegant Row */}
                         {reportConfig.showStats && (
-                            <div className="flex justify-center gap-16 mb-16 border-y border-stone-200 py-6">
+                            <div className="flex justify-center gap-20 mb-12 py-6 relative">
+                                <div className="absolute inset-x-20 top-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
+                                <div className="absolute inset-x-20 bottom-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
+                                
                                 <div className="text-center">
-                                    <span className="block text-2xl text-stone-700">{client.ConsultantEnergies?.length || 0}</span>
-                                    <span className="text-[10px] uppercase tracking-widest text-stone-400">Sesiones</span>
+                                    <span className={`block text-3xl font-serif ${themes[reportConfig.theme].primary}`}>{client.ConsultantEnergies?.length || 0}</span>
+                                    <span className="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Sesiones</span>
                                 </div>
                                 <div className="text-center">
-                                    <span className="block text-2xl text-stone-700">{client.Spreads?.length || 0}</span>
-                                    <span className="text-[10px] uppercase tracking-widest text-stone-400">Lecturas</span>
+                                    <span className={`block text-3xl font-serif ${themes[reportConfig.theme].primary}`}>{client.Spreads?.length || 0}</span>
+                                    <span className="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Lecturas</span>
                                 </div>
                                 <div className="text-center">
-                                    <span className="block text-2xl text-stone-700">{client.Rituals?.length || 0}</span>
-                                    <span className="text-[10px] uppercase tracking-widest text-stone-400">Rituales</span>
+                                    <span className={`block text-3xl font-serif ${themes[reportConfig.theme].primary}`}>{client.Rituals?.length || 0}</span>
+                                    <span className="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Rituales</span>
                                 </div>
                             </div>
                         )}
@@ -859,23 +865,27 @@ export function ClientProfile() {
                         {/* Diagnosis / Devolución */}
                         <div className="flex-grow">
                             <div className="mb-8 text-center">
-                                <h3 className="text-lg italic text-stone-600 mb-2">Devolución Profesional</h3>
-                                <div className="w-8 h-px bg-stone-400 mx-auto"></div>
+                                <h3 className={`text-2xl italic mb-3 ${themes[reportConfig.theme].primary} ${fonts[reportConfig.font]}`}>Devolución Profesional</h3>
+                                <div className="flex justify-center items-center gap-2 opacity-50">
+                                    <div className={`w-12 h-px ${themes[reportConfig.theme].primary.replace('text-', 'bg-')}`}></div>
+                                    <div className={`w-2 h-2 rotate-45 border ${themes[reportConfig.theme].primary.replace('text-', 'border-')}`}></div>
+                                    <div className={`w-12 h-px ${themes[reportConfig.theme].primary.replace('text-', 'bg-')}`}></div>
+                                </div>
                             </div>
                             
-                            <div className="prose prose-stone max-w-none text-justify text-stone-800 leading-loose text-lg whitespace-pre-wrap px-8">
+                            <div className={`prose prose-stone max-w-none text-justify text-stone-800 leading-loose text-lg whitespace-pre-wrap px-8 py-6 bg-white/40 rounded-xl border border-white/60 shadow-sm ${fonts[reportConfig.font]}`}>
                                 {diagnosis}
                             </div>
                         </div>
 
                         {/* Signature */}
-                        <div className="mt-24 pt-12 flex justify-center">
-                            <div className="text-center">
-                                <div className="font-hand text-4xl text-stone-800 mb-4" style={{ transform: 'rotate(-2deg)' }}>
+                        <div className="mt-16 pt-8 flex justify-end px-12">
+                            <div className="text-center w-64">
+                                <div className={`font-hand text-3xl mb-4 transform -rotate-2 ${themes[reportConfig.theme].primary}`}>
                                     Mirada de Luz
                                 </div>
-                                <div className="w-64 h-px bg-stone-300 mx-auto mb-2"></div>
-                                <div className="text-[10px] uppercase tracking-[0.2em] text-stone-400">Firma del Profesional</div>
+                                <div className="w-full h-px bg-stone-400 mb-2"></div>
+                                <div className="text-[10px] uppercase tracking-[0.2em] text-stone-500">Firma del Profesional</div>
                             </div>
                         </div>
                     </div>
