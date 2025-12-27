@@ -142,9 +142,14 @@ const Dashboard = () => {
     fetchData();
     window.addEventListener('local-storage-update', fetchData);
     window.addEventListener('storage', fetchData);
+    
+    // Auto-refresh every minute to keep date-dependent data (Moon Phase, Today's Agenda) in sync
+    const intervalId = setInterval(fetchData, 60000);
+
     return () => {
       window.removeEventListener('local-storage-update', fetchData);
       window.removeEventListener('storage', fetchData);
+      clearInterval(intervalId);
     };
   }, []);
 
