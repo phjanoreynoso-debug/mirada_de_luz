@@ -883,7 +883,7 @@ export function ClientProfile() {
                                             </div>
                                             
                                             {/* Text without box container to allow clean page breaks */}
-                                            <div className={`prose prose-stone max-w-none text-justify text-stone-800 leading-loose text-lg whitespace-pre-wrap ${fonts[reportConfig.font]}`}>
+                                            <div className={`prose prose-stone max-w-none text-center text-stone-800 leading-loose text-lg whitespace-pre-wrap ${fonts[reportConfig.font]}`}>
                                                 {diagnosis}
                                             </div>
                                         </div>
