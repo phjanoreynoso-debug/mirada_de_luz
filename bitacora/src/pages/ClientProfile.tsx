@@ -907,11 +907,7 @@ export function ClientProfile() {
                                         <div className="mb-12">
                                             <div className="mb-8 text-center break-after-avoid">
                                                 <h3 className={`text-2xl italic mb-3 ${themes[reportConfig.theme].primary} ${fonts[reportConfig.font]}`}>Devolución Profesional</h3>
-                                                <div className="flex justify-center items-center gap-2 opacity-50">
-                                                    <div className={`w-12 h-px ${themes[reportConfig.theme].primary.replace('text-', 'bg-')}`}></div>
-                                                    <div className={`w-2 h-2 rotate-45 border ${themes[reportConfig.theme].primary.replace('text-', 'border-')}`}></div>
-                                                    <div className={`w-12 h-px ${themes[reportConfig.theme].primary.replace('text-', 'bg-')}`}></div>
-                                                </div>
+
                                             </div>
                                             
                                             {/* Text without box container to allow clean page breaks */}
