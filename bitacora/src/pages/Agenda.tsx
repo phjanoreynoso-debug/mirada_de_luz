@@ -352,13 +352,45 @@ export function Agenda() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Hora</label>
-                  <input 
-                    required
-                    type="time" 
-                    value={formData.time}
-                    onChange={(e) => setFormData({...formData, time: e.target.value})}
-                    className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                  />
+                  <div className="flex gap-2 items-center">
+                    <div className="relative w-full">
+                      <select
+                        value={formData.time.split(':')[0]}
+                        onChange={(e) => {
+                          const newHour = e.target.value;
+                          const currentMinute = formData.time.split(':')[1] || '00';
+                          setFormData({...formData, time: `${newHour}:${currentMinute}`});
+                        }}
+                        className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer"
+                      >
+                        {Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0')).map(hour => (
+                          <option key={hour} value={hour}>{hour}</option>
+                        ))}
+                      </select>
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                      </div>
+                    </div>
+                    <span className="text-xl font-bold text-slate-300">:</span>
+                    <div className="relative w-full">
+                      <select
+                        value={formData.time.split(':')[1]}
+                        onChange={(e) => {
+                          const currentHour = formData.time.split(':')[0] || '10';
+                          const newMinute = e.target.value;
+                          setFormData({...formData, time: `${currentHour}:${newMinute}`});
+                        }}
+                        className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all bg-white appearance-none cursor-pointer"
+                      >
+                        {Array.from({ length: 12 }, (_, i) => (i * 5).toString().padStart(2, '0')).map(minute => (
+                          <option key={minute} value={minute}>{minute}</option>
+                        ))}
+                      </select>
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
