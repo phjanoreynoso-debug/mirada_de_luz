@@ -45,7 +45,7 @@ const Dashboard = () => {
         const now = new Date();
         const todays = appointmentsData
           .filter((apt: any) => {
-            if (apt.status === 'cancelled') return false;
+            if (apt.status === 'cancelled' || apt.status === 'completed') return false;
             const aptDate = new Date(apt.date);
             return (
               aptDate.getDate() === now.getDate() &&
