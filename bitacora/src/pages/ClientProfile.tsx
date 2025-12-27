@@ -854,27 +854,6 @@ export function ClientProfile() {
                                             </div>
                                         </div>
 
-                                        {/* Stats - Elegant Row */}
-                                        {reportConfig.showStats && (
-                                            <div className="flex justify-center gap-20 mb-12 py-6 relative break-inside-avoid">
-                                                <div className="absolute inset-x-20 top-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
-                                                <div className="absolute inset-x-20 bottom-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
-                                                
-                                                <div className="text-center">
-                                                    <span className={`block text-3xl font-serif ${themes[reportConfig.theme].primary}`}>{client.ConsultantEnergies?.length || 0}</span>
-                                                    <span className="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Sesiones</span>
-                                                </div>
-                                                <div className="text-center">
-                                                    <span className={`block text-3xl font-serif ${themes[reportConfig.theme].primary}`}>{client.Spreads?.length || 0}</span>
-                                                    <span className="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Lecturas</span>
-                                                </div>
-                                                <div className="text-center">
-                                                    <span className={`block text-3xl font-serif ${themes[reportConfig.theme].primary}`}>{client.Rituals?.length || 0}</span>
-                                                    <span className="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Rituales</span>
-                                                </div>
-                                            </div>
-                                        )}
-
                                         {/* Diagnosis / Devolución */}
                                         <div className="mb-12">
                                             <div className="mb-8 text-center break-after-avoid">

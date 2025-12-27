@@ -131,7 +131,7 @@ h1, h2, h3, h4, h5, h6 {
     position: static !important; /* Changed from absolute to static for better flow */
     width: 100% !important;
     height: auto !important;
-    background-color: white !important;
+    background-color: transparent !important;
     z-index: 99999 !important;
     
     /* Force colors */
