@@ -809,7 +809,7 @@ export function ClientProfile() {
                     </div>
 
                     {/* Content Container */}
-                    <div className="relative z-10 p-[20mm] md:p-[25mm] flex flex-col min-h-screen">
+                    <div className="relative z-10 p-[20mm] md:p-[25mm] min-h-screen block">
                         {/* Header */}
                         <div className="text-center mb-12">
                             <div className="flex justify-center mb-6">
@@ -831,7 +831,7 @@ export function ClientProfile() {
                         </div>
 
                         {/* Client Info - Structured & Elegant */}
-                        <div className="text-center mb-12 relative max-w-2xl mx-auto w-full">
+                        <div className="text-center mb-12 relative max-w-2xl mx-auto w-full break-inside-avoid">
                             <div className={`absolute top-0 left-0 w-full h-full border ${themes[reportConfig.theme].primary.replace('text-', 'border-')} opacity-20 rounded-lg`}></div>
                             <div className="relative z-10 py-8 px-12 bg-white/50 backdrop-blur-sm rounded-lg">
                                 <span className={`italic text-lg block mb-2 ${themes[reportConfig.theme].accent}`}>Preparado para</span>
@@ -843,7 +843,7 @@ export function ClientProfile() {
 
                         {/* Stats - Elegant Row */}
                         {reportConfig.showStats && (
-                            <div className="flex justify-center gap-20 mb-12 py-6 relative">
+                            <div className="flex justify-center gap-20 mb-12 py-6 relative break-inside-avoid">
                                 <div className="absolute inset-x-20 top-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
                                 <div className="absolute inset-x-20 bottom-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
                                 
@@ -863,8 +863,8 @@ export function ClientProfile() {
                         )}
 
                         {/* Diagnosis / Devolución */}
-                        <div className="flex-grow">
-                            <div className="mb-8 text-center">
+                        <div className="mb-12">
+                            <div className="mb-8 text-center break-after-avoid">
                                 <h3 className={`text-2xl italic mb-3 ${themes[reportConfig.theme].primary} ${fonts[reportConfig.font]}`}>Devolución Profesional</h3>
                                 <div className="flex justify-center items-center gap-2 opacity-50">
                                     <div className={`w-12 h-px ${themes[reportConfig.theme].primary.replace('text-', 'bg-')}`}></div>
@@ -873,13 +873,14 @@ export function ClientProfile() {
                                 </div>
                             </div>
                             
-                            <div className={`prose prose-stone max-w-none text-justify text-stone-800 leading-loose text-lg whitespace-pre-wrap px-8 py-6 bg-white/40 rounded-xl border border-white/60 shadow-sm ${fonts[reportConfig.font]}`}>
+                            {/* Text without box container to allow clean page breaks */}
+                            <div className={`prose prose-stone max-w-none text-justify text-stone-800 leading-loose text-lg whitespace-pre-wrap ${fonts[reportConfig.font]}`}>
                                 {diagnosis}
                             </div>
                         </div>
 
-                        {/* Signature */}
-                        <div className="mt-16 pt-8 flex justify-end px-12">
+                        {/* Signature - Flows naturally after text */}
+                        <div className="mt-16 pt-8 flex justify-end px-12 break-inside-avoid">
                             <div className="text-center w-64">
                                 <div className={`font-hand text-3xl mb-4 transform -rotate-2 ${themes[reportConfig.theme].primary}`}>
                                     Mirada de Luz
