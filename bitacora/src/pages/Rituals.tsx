@@ -149,7 +149,7 @@ const Rituals = () => {
           </div>
           
           <div className="flex gap-3">
-             <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10 min-w-[140px]">
+             <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10 min-w-[140px] flex flex-col items-center text-center">
                <p className="text-amber-200 text-xs font-medium uppercase tracking-wider">Total Rituales</p>
                <p className="text-3xl font-bold">{history.length}</p>
              </div>
