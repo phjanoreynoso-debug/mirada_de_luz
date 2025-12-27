@@ -895,7 +895,7 @@ export function ClientProfile() {
                                         {/* Signature - Flows naturally after text */}
                                         <div className="mt-16 pt-8 flex justify-end px-12 break-inside-avoid">
                                             <div className="text-center w-64">
-                                                <div className={`font-hand text-3xl mb-4 transform -rotate-2 ${themes[reportConfig.theme].primary}`}>
+                                                <div className={`font-hand text-5xl mb-4 transform -rotate-2 ${themes[reportConfig.theme].primary}`}>
                                                     Mirada de Luz
                                                 </div>
                                                 <div className="w-full h-px bg-stone-400 mb-2"></div>
