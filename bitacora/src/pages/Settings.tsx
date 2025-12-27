@@ -8,6 +8,7 @@ const Settings = () => {
   const [cursorColor, setCursorColor] = useState('#9333ea'); // Default purple
   // Removed appTitle state since it's only used for saving
   const [inputTitle, setInputTitle] = useState('Bitácora');
+  const [professionTitle, setProfessionTitle] = useState('Bitácora Profesional');
   const [customLogo, setCustomLogo] = useState<string | null>(null);
 
   const cursorOptions = [
@@ -30,6 +31,7 @@ const Settings = () => {
     const savedSize = localStorage.getItem('bitacora_cursor_size');
     const savedColor = localStorage.getItem('bitacora_cursor_color');
     const savedTitle = localStorage.getItem('bitacora_app_title');
+    const savedProfession = localStorage.getItem('bitacora_profession_title');
     const savedLogo = localStorage.getItem('bitacora_custom_logo');
     
     if (savedCursor) setSelectedCursor(savedCursor);
@@ -39,6 +41,7 @@ const Settings = () => {
       // setAppTitle(savedTitle); - Removed as unused
       setInputTitle(savedTitle);
     }
+    if (savedProfession) setProfessionTitle(savedProfession);
     if (savedLogo) setCustomLogo(savedLogo);
   }, []);
 
@@ -70,6 +73,15 @@ const Settings = () => {
     // setAppTitle(inputTitle); - Removed as unused
     localStorage.setItem('bitacora_app_title', inputTitle);
     window.dispatchEvent(new CustomEvent('app-title-change', { detail: inputTitle }));
+  };
+
+  const handleProfessionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfessionTitle(e.target.value);
+  };
+
+  const handleSaveProfession = () => {
+    localStorage.setItem('bitacora_profession_title', professionTitle);
+    // Optional: dispatch event if needed elsewhere immediately
   };
 
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,6 +149,35 @@ const Settings = () => {
           <button
             onClick={handleSaveTitle}
             className="p-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm flex items-center justify-center"
+            title="Guardar nombre"
+          >
+            <Check size={20} />
+          </button>
+        </div>
+      </div>
+
+      {/* Profession Title Control */}
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-3 bg-emerald-50 rounded-xl">
+            <Type className="w-6 h-6 text-emerald-600" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-slate-800">Nombre de la Profesión</h2>
+            <p className="text-sm text-slate-500">Aparece debajo del título "Informe Energético" (ej: Bitácora Profesional)</p>
+          </div>
+        </div>
+        <div className="px-4 flex gap-3 items-center">
+          <input 
+            type="text" 
+            value={professionTitle}
+            onChange={handleProfessionChange}
+            className="max-w-xs w-full p-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-slate-700"
+            placeholder="Ej: Bitácora Profesional"
+          />
+          <button
+            onClick={handleSaveProfession}
+            className="p-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors shadow-sm flex items-center justify-center"
             title="Guardar nombre"
           >
             <Check size={20} />

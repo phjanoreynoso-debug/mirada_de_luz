@@ -16,6 +16,7 @@ export function ClientProfile() {
   const [diagnosis, setDiagnosis] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [customLogo, setCustomLogo] = useState<string | null>(null);
+  const [professionTitle, setProfessionTitle] = useState('Bitácora Profesional');
   
   // Design Configuration
   const [reportConfig, setReportConfig] = useState({
@@ -46,8 +47,12 @@ export function ClientProfile() {
 
   useEffect(() => {
     const savedLogo = localStorage.getItem('bitacora_custom_logo');
+    const savedProfession = localStorage.getItem('bitacora_profession_title');
     if (savedLogo) {
         setCustomLogo(savedLogo);
+    }
+    if (savedProfession) {
+        setProfessionTitle(savedProfession);
     }
   }, []);
 
@@ -602,7 +607,7 @@ export function ClientProfile() {
                             <div className={`flex justify-between items-end mb-12 relative z-10 border-b ${themes[reportConfig.theme].border} pb-8`}>
                                 <div>
                                     <h1 className={`text-4xl font-bold tracking-tight mb-2 ${themes[reportConfig.theme].primary} ${fonts[reportConfig.font]}`}>Informe Energético</h1>
-                                    <p className="text-slate-500 text-sm uppercase tracking-widest font-medium">Bitácora Profesional</p>
+                                    <p className="text-slate-500 text-sm uppercase tracking-widest font-medium">{professionTitle}</p>
                                 </div>
                                 <div className="text-right">
                                     <div className="text-sm text-slate-400 font-medium mb-1">Fecha de Emisión</div>
@@ -837,7 +842,7 @@ export function ClientProfile() {
                                             
                                             <h1 className={`text-5xl font-bold mb-4 tracking-wide ${themes[reportConfig.theme].primary} ${fonts[reportConfig.font]}`}>Informe Energético</h1>
                                             <div className="flex items-center justify-center gap-4 text-xs tracking-[0.2em] text-stone-500 uppercase font-semibold">
-                                                <span>Bitácora Profesional</span>
+                                                <span>{professionTitle}</span>
                                                 <span className={`w-1.5 h-1.5 rounded-full ${themes[reportConfig.theme].accent.replace('text-', 'bg-')}`}></span>
                                                 <span>{new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                                             </div>
