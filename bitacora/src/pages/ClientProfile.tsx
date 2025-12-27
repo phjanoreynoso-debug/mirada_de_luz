@@ -758,7 +758,8 @@ export function ClientProfile() {
 
                                         {/* Report Title in Print */}
                                         <div className="text-center mb-8">
-                                            <h1 className={`text-2xl font-bold text-slate-900 tracking-wider mb-2 uppercase ${fonts[reportConfig.font]}`}>Informe Profesional</h1>
+                                            <h1 className={`text-2xl font-bold text-slate-900 tracking-wider mb-2 uppercase ${fonts[reportConfig.font]}`}>Informe Energético</h1>
+                                            <p className="text-sm text-slate-500 font-bold tracking-widest uppercase mb-4">{professionTitle}</p>
                                             <div className="w-24 h-px bg-amber-400 mx-auto"></div>
                                         </div>
                                         
