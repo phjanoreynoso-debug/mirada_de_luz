@@ -42,8 +42,22 @@ const Dashboard = () => {
         });
 
         // Today's Appointments
-        const today = new Date().toISOString().split('T')[0];
-        const todays = appointmentsData.filter((apt: any) => apt.date.startsWith(today) && apt.status !== 'cancelled');
+        const now = new Date();
+        const todays = appointmentsData
+          .filter((apt: any) => {
+            if (apt.status === 'cancelled') return false;
+            const aptDate = new Date(apt.date);
+            return (
+              aptDate.getDate() === now.getDate() &&
+              aptDate.getMonth() === now.getMonth() &&
+              aptDate.getFullYear() === now.getFullYear()
+            );
+          })
+          .map((apt: any) => {
+            const consultant = clientsData.find((c: any) => c.id.toString() === apt.ConsultantId?.toString());
+            return { ...apt, Consultant: consultant };
+          });
+
         setTodaysAppointments(todays);
 
         // Financials (Current Month)
