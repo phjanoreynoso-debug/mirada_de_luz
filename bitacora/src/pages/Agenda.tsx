@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Calendar as CalendarIcon, Clock, Plus, Trash2, CheckCircle, XCircle, User } from 'lucide-react';
+import { Calendar as CalendarIcon, Plus, Trash2, CheckCircle, XCircle, User } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import { ConfirmModal } from '../components/ConfirmModal';
 import { appointmentService, clientService } from '../services/localStorage';
