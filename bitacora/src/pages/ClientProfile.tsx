@@ -780,9 +780,13 @@ export function ClientProfile() {
         <div className="print-portal">
             {/* VISUAL REPORT */}
             {reportMode === 'visual' && (
-                <div className={`print-page visual w-full min-h-screen relative ${fonts[reportConfig.font]}`} style={{backgroundColor: '#fffcf5'}}>
+                <div className={`print-page visual w-full min-h-screen relative ${fonts[reportConfig.font]}`}>
                     {/* Fixed Background & Decorations (Repeats on every page) */}
-                    <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+                    <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden" style={{
+                        backgroundColor: '#fffcf5',
+                        printColorAdjust: 'exact',
+                        WebkitPrintColorAdjust: 'exact'
+                    }}>
                         {/* Parchment Texture Effect */}
                         <div className="absolute inset-0" style={{
                             backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.08\'/%3E%3C/svg%3E")',
