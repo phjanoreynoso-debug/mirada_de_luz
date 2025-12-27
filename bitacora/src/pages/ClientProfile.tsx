@@ -699,6 +699,79 @@ export function ClientProfile() {
                     </div>
                 </div>
             )}
+
+            {/* TEXT REPORT */}
+            {reportMode === 'text' && (
+                <div className="print-page text bg-white w-full min-h-screen relative p-0">
+                    {/* Fixed Decorative Frame (Repeats on every page) */}
+                    <div className="fixed inset-0 z-0 pointer-events-none">
+                        {/* Border */}
+                        <div className="absolute top-4 left-4 right-4 bottom-4 border-2 border-amber-500"></div>
+                        <div className="absolute top-6 left-6 right-6 bottom-6 border border-dashed border-amber-400"></div>
+                        
+                        {/* Corner Ornaments */}
+                        <svg className="absolute top-2 left-2 w-16 h-16 text-slate-800" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M10,10 L40,10 C35,15 30,20 30,30 C30,40 40,50 50,50 L50,45 C45,45 40,40 40,30 C40,20 50,15 60,10 L90,10 L90,40 C85,35 80,30 70,30 C60,30 50,40 50,50 L55,50 C55,45 60,40 70,40 C80,40 85,50 90,60 L90,90 L60,90 C65,85 70,80 70,70 C70,60 60,50 50,50 L50,55 C55,55 60,60 60,70 C60,80 50,85 40,90 L10,90 L10,60 C15,65 20,70 30,70 C40,70 50,60 50,50 L45,50 C45,55 40,60 30,60 C20,60 15,50 10,40 L10,10 Z" fill="none" />
+                            <path d="M0,0 L40,0 L0,40 Z" fill="#1e293b" />
+                            <path d="M5,5 L35,5 C30,10 25,25 5,35 Z" fill="#f59e0b" />
+                        </svg>
+                        <svg className="absolute top-2 right-2 w-16 h-16 text-slate-800 transform scale-x-[-1]" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M0,0 L40,0 L0,40 Z" fill="#1e293b" />
+                            <path d="M5,5 L35,5 C30,10 25,25 5,35 Z" fill="#f59e0b" />
+                        </svg>
+                        <svg className="absolute bottom-2 left-2 w-16 h-16 text-slate-800 transform scale-y-[-1]" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M0,0 L40,0 L0,40 Z" fill="#1e293b" />
+                            <path d="M5,5 L35,5 C30,10 25,25 5,35 Z" fill="#f59e0b" />
+                        </svg>
+                        <svg className="absolute bottom-2 right-2 w-16 h-16 text-slate-800 transform scale-[-1]" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M0,0 L40,0 L0,40 Z" fill="#1e293b" />
+                            <path d="M5,5 L35,5 C30,10 25,25 5,35 Z" fill="#f59e0b" />
+                        </svg>
+                    </div>
+
+                    {/* Main Content Area using Table for repeatable headers/margins */}
+                    <div className="relative z-10 w-full">
+                        <table className="w-full">
+                            <thead>
+                                <tr>
+                                    <td className="h-[30mm]"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="px-[25mm]">
+                                        {/* Logo Placeholder */}
+                                        <div className="flex justify-center mb-10">
+                                            {customLogo ? (
+                                                <img src={customLogo} alt="Logo Profesional" className="h-20 w-auto object-contain" />
+                                            ) : (
+                                                <div className="border-2 border-dotted border-amber-300 px-6 py-3 bg-amber-50/30 text-amber-700 font-serif font-bold tracking-widest text-sm uppercase">
+                                                    TU LOGO
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Report Title in Print */}
+                                        <div className="text-center mb-8">
+                                            <h1 className={`text-2xl font-bold text-slate-900 tracking-wider mb-2 uppercase ${fonts[reportConfig.font]}`}>Informe Profesional</h1>
+                                            <div className="w-24 h-px bg-amber-400 mx-auto"></div>
+                                        </div>
+                                        
+                                        <div className={`${fonts[reportConfig.font]} text-slate-800 leading-loose text-justify whitespace-pre-wrap text-base`}>
+                                            {reportText}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td className="h-[20mm]"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            )}
           </div>
         )}
       </div>
@@ -707,190 +780,103 @@ export function ClientProfile() {
         <div className="print-portal">
             {/* VISUAL REPORT */}
             {reportMode === 'visual' && (
-                <div className={`print-page visual w-full min-h-screen relative ${fonts[reportConfig.font]}`} style={{backgroundColor: '#fdfbf7'}}>
+                <div className={`print-page visual w-full min-h-screen relative ${fonts[reportConfig.font]}`} style={{backgroundColor: '#fffcf5'}}>
                     {/* Fixed Background & Decorations (Repeats on every page) */}
                     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
                         {/* Parchment Texture Effect */}
                         <div className="absolute inset-0" style={{
-                            backgroundImage: 'radial-gradient(#dac4a5 1px, transparent 1px)', 
-                            backgroundSize: '30px 30px', 
-                            opacity: 0.1
+                            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.08\'/%3E%3C/svg%3E")',
+                            opacity: 0.6
                         }}></div>
                         
-                        {/* Parchment Inner Shadow */}
-                        <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(180,140,100,0.15)]"></div>
+                        {/* Elegant Frame - Single fine line with corner accents */}
+                        <div className="absolute top-8 left-8 right-8 bottom-8 border border-stone-800 opacity-80"></div>
+                        <div className="absolute top-9 left-9 right-9 bottom-9 border border-stone-400 opacity-40"></div>
                         
-                        {/* Double Border Frame */}
-                        <div className="absolute top-4 left-4 right-4 bottom-4 border-4 border-double border-stone-300 rounded-lg opacity-60"></div>
+                        {/* Corner Accents */}
+                        <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-stone-800"></div>
+                        <div className="absolute top-8 right-8 w-4 h-4 border-t-2 border-r-2 border-stone-800"></div>
+                        <div className="absolute bottom-8 left-8 w-4 h-4 border-b-2 border-l-2 border-stone-800"></div>
+                        <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-stone-800"></div>
 
                         {reportConfig.decoration !== 'minimal' && (
                             <>
-                                {/* Removed top gradient line as requested */}
-                                <div className={`absolute -top-20 -right-20 w-64 h-64 ${themes[reportConfig.theme].bg} rounded-full blur-3xl opacity-30`}></div>
-                                <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#f5ecd9] to-transparent"></div>
-                                
-                                {reportConfig.decoration === 'modern' && (
-                                    <div className={`absolute top-6 left-6 right-6 bottom-6 border ${themes[reportConfig.theme].border}`}></div>
-                                )}
-
-                                {reportConfig.decoration === 'ornate' && (
-                                    <>
-                                        <div className="absolute top-0 left-0 w-full h-full border-[15px] border-double border-stone-200 border-opacity-40"></div>
-                                        
-                                        {/* Corner Ornaments */}
-                                        <svg className="absolute top-6 left-6 w-16 h-16 text-stone-400 opacity-40" viewBox="0 0 100 100" fill="currentColor">
-                                            <path d="M10,10 L40,10 C35,15 30,20 30,30 C30,40 40,50 50,50 L50,45 C45,45 40,40 40,30 C40,20 50,15 60,10 L90,10 L90,40 C85,35 80,30 70,30 C60,30 50,40 50,50 L55,50 C55,45 60,40 70,40 C80,40 85,50 90,60 L90,90 L60,90 C65,85 70,80 70,70 C70,60 60,50 50,50 L50,55 C55,55 60,60 60,70 C60,80 50,85 40,90 L10,90 L10,60 C15,65 20,70 30,70 C40,70 50,60 50,50 L45,50 C45,55 40,60 30,60 C20,60 15,50 10,40 L10,10 Z" fill="none" />
-                                            <path d="M0,0 L40,0 L0,40 Z" fill="currentColor" />
-                                        </svg>
-                                        <svg className="absolute top-6 right-6 w-16 h-16 text-stone-400 opacity-40 transform scale-x-[-1]" viewBox="0 0 100 100" fill="currentColor">
-                                            <path d="M0,0 L40,0 L0,40 Z" fill="currentColor" />
-                                        </svg>
-                                        <svg className="absolute bottom-6 left-6 w-16 h-16 text-stone-400 opacity-40 transform scale-y-[-1]" viewBox="0 0 100 100" fill="currentColor">
-                                            <path d="M0,0 L40,0 L0,40 Z" fill="currentColor" />
-                                        </svg>
-                                        <svg className="absolute bottom-6 right-6 w-16 h-16 text-stone-400 opacity-40 transform scale-[-1]" viewBox="0 0 100 100" fill="currentColor">
-                                            <path d="M0,0 L40,0 L0,40 Z" fill="currentColor" />
-                                        </svg>
-                                    </>
-                                )}
+                                {/* Subtle floral watermark in corners */}
+                                <div className="absolute top-0 left-0 w-32 h-32 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 0 0, #d6bcfa 0%, transparent 70%)'}}></div>
+                                <div className="absolute bottom-0 right-0 w-32 h-32 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 100% 100%, #d6bcfa 0%, transparent 70%)'}}></div>
                             </>
                         )}
                     </div>
 
                     {/* Content Container */}
-                    <div className="relative z-10 p-[15mm] md:p-[20mm]">
-                        {/* Logo Placeholder (Optional) */}
-                        {reportConfig.decoration !== 'minimal' && (
-                            <div className="flex justify-center mb-8">
+                    <div className="relative z-10 p-[25mm] md:p-[30mm] flex flex-col min-h-screen">
+                        {/* Header */}
+                        <div className="text-center mb-16">
+                            <div className="flex justify-center mb-6">
                                 {customLogo ? (
-                                    <img src={customLogo} alt="Logo Profesional" className="h-24 w-auto object-contain" />
+                                    <img src={customLogo} alt="Logo Profesional" className="h-24 w-auto object-contain grayscale opacity-80" />
                                 ) : (
-                                    <div className={`border-2 border-dotted ${themes[reportConfig.theme].border} px-4 py-2 bg-white/50 text-slate-400 font-serif font-bold tracking-widest text-xs uppercase`}>
-                                        TU LOGO
+                                    <div className="w-12 h-12 rounded-full border border-stone-400 flex items-center justify-center text-stone-600">
+                                        <Sparkles size={20} strokeWidth={1} />
                                     </div>
                                 )}
                             </div>
-                        )}
-
-                        {/* Header */}
-                        <div className={`flex justify-between items-end mb-12 border-b ${themes[reportConfig.theme].border} pb-8`}>
-                            <div>
-                                <h1 className={`text-4xl font-bold tracking-tight mb-2 ${themes[reportConfig.theme].primary} ${fonts[reportConfig.font]}`}>Informe Energético</h1>
-                                <p className="text-slate-500 text-sm uppercase tracking-widest font-medium">Bitácora Profesional</p>
-                            </div>
-                            <div className="text-right">
-                                <div className="text-sm text-slate-400 font-medium mb-1">Fecha de Emisión</div>
-                                <div className="text-slate-700 font-medium">{new Date().toLocaleDateString()}</div>
+                            
+                            <h1 className="text-5xl text-stone-800 mb-3 tracking-wide">Informe Energético</h1>
+                            <div className="flex items-center justify-center gap-4 text-xs tracking-[0.2em] text-stone-500 uppercase">
+                                <span>Bitácora Profesional</span>
+                                <span className="w-1 h-1 rounded-full bg-stone-400"></span>
+                                <span>{new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                             </div>
                         </div>
 
-                        {/* Client Info */}
-                        <div className={`flex items-center gap-6 mb-12 ${themes[reportConfig.theme].bg} bg-opacity-30 p-6 rounded-2xl border ${themes[reportConfig.theme].border} break-inside-avoid`}>
-                                <div className={`w-16 h-16 bg-gradient-to-br ${themes[reportConfig.theme].gradient} rounded-2xl flex items-center justify-center text-white text-3xl shadow-lg`}>
-                                {client.name.charAt(0).toUpperCase()}
-                            </div>
-                            <div>
-                                <h2 className={`text-2xl font-bold ${themes[reportConfig.theme].primary}`}>{client.name}</h2>
-                                <p className="text-slate-500 text-sm mt-1">Informe de progreso y análisis espiritual</p>
-                            </div>
+                        {/* Client Info - Minimal & Elegant */}
+                        <div className="text-center mb-16 relative">
+                            <span className="text-stone-400 italic text-lg relative bg-[#fffcf5] px-4 z-10">Preparado para</span>
+                            <div className="absolute top-1/2 left-1/4 right-1/4 h-px bg-stone-200 -z-0"></div>
+                            <h2 className="text-4xl mt-4 text-stone-800">{client.name}</h2>
+                            <p className="text-stone-500 italic mt-2">Análisis Espiritual y Recomendaciones</p>
                         </div>
 
-                        {/* Stats Grid */}
+                        {/* Stats - Minimal Row */}
                         {reportConfig.showStats && (
-                            <div className="grid grid-cols-3 gap-6 mb-12 break-inside-avoid">
-                                <div className={`p-4 rounded-2xl ${themes[reportConfig.theme].bg} bg-opacity-40 border ${themes[reportConfig.theme].border} text-center`}>
-                                    <div className={`text-3xl font-bold ${themes[reportConfig.theme].primary} mb-1`}>{client.ConsultantEnergies?.length || 0}</div>
-                                    <div className={`text-xs font-bold ${themes[reportConfig.theme].accent} uppercase tracking-wider`}>Sesiones</div>
+                            <div className="flex justify-center gap-16 mb-16 border-y border-stone-200 py-6">
+                                <div className="text-center">
+                                    <span className="block text-2xl text-stone-700">{client.ConsultantEnergies?.length || 0}</span>
+                                    <span className="text-[10px] uppercase tracking-widest text-stone-400">Sesiones</span>
                                 </div>
-                                <div className={`p-4 rounded-2xl ${themes[reportConfig.theme].bg} bg-opacity-40 border ${themes[reportConfig.theme].border} text-center`}>
-                                    <div className={`text-3xl font-bold ${themes[reportConfig.theme].primary} mb-1`}>{client.Spreads?.length || 0}</div>
-                                    <div className={`text-xs font-bold ${themes[reportConfig.theme].accent} uppercase tracking-wider`}>Lecturas</div>
+                                <div className="text-center">
+                                    <span className="block text-2xl text-stone-700">{client.Spreads?.length || 0}</span>
+                                    <span className="text-[10px] uppercase tracking-widest text-stone-400">Lecturas</span>
                                 </div>
-                                <div className={`p-4 rounded-2xl ${themes[reportConfig.theme].bg} bg-opacity-40 border ${themes[reportConfig.theme].border} text-center`}>
-                                    <div className={`text-3xl font-bold ${themes[reportConfig.theme].primary} mb-1`}>{client.Rituals?.length || 0}</div>
-                                    <div className={`text-xs font-bold ${themes[reportConfig.theme].accent} uppercase tracking-wider`}>Rituales</div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Recent Activity Highlight */}
-                        {(client.ConsultantEnergies?.length > 0) && (
-                            <div className="mb-12 break-inside-avoid">
-                                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-                                    <Activity size={16} />
-                                    Última Sesión Energética
-                                </h3>
-                                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
-                                    <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${themes[reportConfig.theme].gradient}`}></div>
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div>
-                                            <div className="text-xs text-slate-400 mb-1">Fecha</div>
-                                            <div className="font-medium text-slate-700">{new Date(client.ConsultantEnergies[0].createdAt).toLocaleDateString()}</div>
-                                        </div>
-                                        <div className="flex gap-8">
-                                            <div>
-                                                <div className="text-xs text-slate-400 mb-1">Antes</div>
-                                                <div className="font-medium text-slate-700">{client.ConsultantEnergies[0].energyBefore}</div>
-                                            </div>
-                                            <div>
-                                                    <div className="text-xs text-slate-400 mb-1">Ahora</div>
-                                                <div className="font-medium text-slate-700">{client.ConsultantEnergies[0].energyAfter}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {client.ConsultantEnergies[0].notes && (
-                                        <p className="text-slate-600 text-sm italic bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                            "{client.ConsultantEnergies[0].notes}"
-                                        </p>
-                                    )}
+                                <div className="text-center">
+                                    <span className="block text-2xl text-stone-700">{client.Rituals?.length || 0}</span>
+                                    <span className="text-[10px] uppercase tracking-widest text-stone-400">Rituales</span>
                                 </div>
                             </div>
                         )}
 
-                        {/* Professional Diagnosis (Read-Only for Print) */}
-                        <div className="print-break"></div>
-                        <div className="relative w-full">
-                            <table className="w-full">
-                                <thead>
-                                    <tr>
-                                        <td style={{ height: '140px' }}></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div className="min-h-[500px] flex flex-col">
-                                                <h3 className={`text-lg font-bold mb-12 flex items-center justify-center gap-2 border-b ${themes[reportConfig.theme].border} pb-2 ${themes[reportConfig.theme].primary}`}>
-                                                    <Sparkles size={18} className={themes[reportConfig.theme].accent} />
-                                                    DEVOLUCIÓN
-                                                </h3>
-                                                <div 
-                                                    className={`w-full p-0 border-0 bg-transparent text-slate-700 text-center text-base leading-relaxed whitespace-pre-wrap ${fonts[reportConfig.font]}`}
-                                                    style={{ lineHeight: '32px', padding: '0 10px' }}
-                                                >
-                                                    {diagnosis}
-                                                </div>
-                                                
-                                                {/* Signature */}
-                                                <div className="mt-auto pt-24 border-t border-slate-100 flex justify-center items-end break-inside-avoid">
-                                                    <div className="flex flex-col items-center gap-1">
-                                                        <div className="font-hand text-3xl text-slate-700" style={{ transform: 'rotate(-2deg)', marginBottom: '-8px', fontFamily: '"Dancing Script", cursive' }}>
-                                                            Mirada de Luz
-                                                        </div>
-                                                        <div className="w-48 h-px bg-slate-300"></div>
-                                                        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">Firma del Profesional</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td style={{ height: '140px' }}></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                        {/* Diagnosis / Devolución */}
+                        <div className="flex-grow">
+                            <div className="mb-8 text-center">
+                                <h3 className="text-lg italic text-stone-600 mb-2">Devolución Profesional</h3>
+                                <div className="w-8 h-px bg-stone-400 mx-auto"></div>
+                            </div>
+                            
+                            <div className="prose prose-stone max-w-none text-justify text-stone-800 leading-loose text-lg whitespace-pre-wrap px-8">
+                                {diagnosis}
+                            </div>
+                        </div>
+
+                        {/* Signature */}
+                        <div className="mt-24 pt-12 flex justify-center">
+                            <div className="text-center">
+                                <div className="font-hand text-4xl text-stone-800 mb-4" style={{ transform: 'rotate(-2deg)' }}>
+                                    Mirada de Luz
+                                </div>
+                                <div className="w-64 h-px bg-stone-300 mx-auto mb-2"></div>
+                                <div className="text-[10px] uppercase tracking-[0.2em] text-stone-400">Firma del Profesional</div>
+                            </div>
                         </div>
                     </div>
                 </div>

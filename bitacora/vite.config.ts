@@ -8,9 +8,9 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    viteSingleFile(),
+    // viteSingleFile(), // Desactivado para evitar problemas en móviles con archivos grandes
   ],
-  base: './',
+  base: '/mirada_de_luz/',
   server: {
     proxy: {
       '/api': 'http://localhost:3000'

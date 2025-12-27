@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, Sparkles, User, ScrollText, Moon, Users, Settings, X, Save, Calendar, DollarSign } from 'lucide-react'
+import { LayoutDashboard, Sparkles, User, ScrollText, Moon, Users, Settings, X, Save, Calendar, DollarSign, Menu } from 'lucide-react'
 import CustomCursor from './CustomCursor'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const [user, setUser] = useState({ name: 'Practicante', status: 'En línea' });
   const [isEditing, setIsEditing] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [tempUser, setTempUser] = useState({ name: '', status: '' });
   const [appTitle, setAppTitle] = useState('Bitácora');
   const modalRef = useRef<HTMLDivElement>(null);
-  
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
   useEffect(() => {
     const savedUser = localStorage.getItem('bitacora_user');
     if (savedUser) {
@@ -84,9 +90,35 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans">
       <CustomCursor />
-      {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 border-r border-slate-800 hidden md:flex flex-col shadow-xl fixed h-full z-10">
-        <div className="px-6 py-8 border-b border-slate-800/50">
+      
+      {/* Mobile Header */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-slate-900 border-b border-slate-800 z-30 px-4 py-3 flex items-center justify-between shadow-md">
+        <h1 className="text-white font-bold font-serif flex items-center gap-2">
+          <span className="text-2xl">🔮</span>
+          <span className="text-lg truncate max-w-[200px]">{appTitle}</span>
+        </h1>
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="text-slate-300 hover:text-white p-1 rounded-md hover:bg-slate-800 transition-colors"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-20 md:hidden backdrop-blur-sm animate-fade-in"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar (Desktop & Mobile) */}
+      <aside className={`
+        fixed md:sticky top-0 h-full w-64 bg-slate-900 border-r border-slate-800 flex flex-col shadow-xl z-30 transition-transform duration-300 ease-in-out
+        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+      `}>
+        <div className="px-6 py-8 border-b border-slate-800/50 hidden md:block">
           <h1 className={`${getTitleSizeClass(appTitle)} font-bold text-white flex items-center gap-3 font-serif tracking-wide transition-all duration-300 overflow-hidden`}>
             <span className="text-3xl filter drop-shadow-lg shrink-0">🔮</span> 
             <span className="whitespace-nowrap overflow-hidden text-ellipsis">{appTitle}</span>
@@ -137,9 +169,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <Settings className="w-5 h-5 mr-3" />
             Configuración
           </Link>
+          
+          {/* Mobile User Info in Nav */}
+          <div className="md:hidden mt-8 border-t border-slate-800 pt-4 pb-8">
+            <div className="flex items-center gap-3 px-3">
+               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white border-2 border-slate-800 shadow-lg relative">
+                 <span className="font-serif font-bold text-lg">{user.name.charAt(0).toUpperCase()}</span>
+                 <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900"></div>
+               </div>
+               <div className="flex-1 min-w-0">
+                 <p className="text-sm font-medium text-slate-200 truncate">{user.name}</p>
+                 <p className="text-xs text-slate-500 truncate">{user.status}</p>
+               </div>
+            </div>
+          </div>
         </nav>
         
-        <div className="relative">
+        <div className="relative hidden md:block">
           <div 
             className="p-4 border-t border-slate-800 bg-slate-900/50 cursor-pointer hover:bg-slate-800 transition-colors group"
             onClick={handleEditClick}
@@ -209,7 +255,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8 md:ml-64 bg-slate-50/50 min-h-screen">
+      <main className="flex-1 p-4 md:p-8 pt-24 md:pt-8 bg-slate-50/50 min-h-screen transition-all duration-300">
         <div className="max-w-6xl mx-auto animate-fade-in">
           {children}
         </div>

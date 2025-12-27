@@ -92,7 +92,7 @@ const CustomCursor = () => {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 pointer-events-none z-[9999] will-change-transform"
+      className="hidden md:block fixed top-0 left-0 pointer-events-none z-[9999] will-change-transform"
     >
       <div
         className={`origin-top ${isHovering ? 'scale-125' : 'scale-100'}`}
