@@ -44,6 +44,14 @@ export function ClientProfile() {
     title: 'font-title'
   };
 
+  const fontSizes: any = {
+    small: 'text-sm',
+    medium: 'text-base',
+    large: 'text-lg',
+    xl: 'text-xl',
+    '2xl': 'text-2xl'
+  };
+
   const mysticalEmojis = ['✨', '🌙', '🔮', '🕯️', '🪷', '🧿', '⭐', '🌿', '🔥', '💧', '💨', '🌱', '☀️', '🌕', '🌑', '⚜️', '🗝️', '📜'];
 
   useEffect(() => {
