@@ -88,6 +88,12 @@ const Dashboard = () => {
     };
 
     fetchData();
+    window.addEventListener('local-storage-update', fetchData);
+    window.addEventListener('storage', fetchData);
+    return () => {
+      window.removeEventListener('local-storage-update', fetchData);
+      window.removeEventListener('storage', fetchData);
+    };
   }, []);
 
   if (loading) {

@@ -70,6 +70,7 @@ const getStorage = <T>(key: string): T[] => {
 
 const setStorage = <T>(key: string, data: T[]) => {
   localStorage.setItem(key, JSON.stringify(data));
+  window.dispatchEvent(new Event('local-storage-update'));
 };
 
 // --- CLIENTS SERVICE ---
